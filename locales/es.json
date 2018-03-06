@@ -1,0 +1,5 @@
+{
+    "api.person.fields.empty": "Hay campos vacios",
+    "api.person.save.success": "Registro almacenado con exito",
+    "api.person.delete.success": "Registro eliminado correctamente"
+}
