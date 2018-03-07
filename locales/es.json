@@ -1,5 +1,7 @@
 {
-    "api.person.fields.empty": "Hay campos vacios",
-    "api.person.save.success": "Registro almacenado con exito",
-    "api.person.delete.success": "Registro eliminado correctamente"
+	"api.person.fields.empty": "Hay campos vacios",
+	"api.person.save.success": "Registro almacenado con exito",
+	"api.person.delete.success": "Registro eliminado correctamente",
+	"api.auth.fields.empty": "api.auth.fields.empty",
+	"api.auth.login.data.error": "api.auth.login.data.error"
 }

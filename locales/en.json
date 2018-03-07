@@ -1,6 +1,7 @@
 {
-    "api.person.fields.empty": "Empty fields",
-    "api.person.save.success": "Save success",
-    "api.person.delete.success": "Delete success",
-    "api.user.save.success": "api.user.save.success"
+	"api.person.fields.empty": "Empty fields",
+	"api.person.save.success": "Save success",
+	"api.person.delete.success": "Delete success",
+	"api.user.save.success": "api.user.save.success",
+	"api.auth.login.data.error": "api.auth.login.data.error"
 }
