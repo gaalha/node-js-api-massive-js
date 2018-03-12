@@ -30,7 +30,6 @@ router.post('/save', (req, res, next) => {
     let errors = req.validationErrors(); 
 
     if(errors){
-      console.log(req.checkBody('txtPersonId'));
         res.send({
             success: false,
             message: res.__('api.person.fields.empty')

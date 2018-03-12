@@ -7,9 +7,6 @@ router.post('/login', (req, res, next) => {
     req.checkBody('txtUsername').trim().notEmpty();
     req.checkBody('txtPassword').trim().notEmpty();
 
-    console.log(req.body.txtUsername);
-    console.log(req.body.txtPassword);
-
     let errors = req.validationErrors();
 
     if(errors){
