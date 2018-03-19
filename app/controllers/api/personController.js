@@ -12,7 +12,7 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-router.get('*', (req, res, next) => {
+/*router.get('*', (req, res, next) => {
     req.app.get('db').Person.find().then(results => {
         if(results.length === 0){
             res.send({success:false, message:res.__('api.person.get.empty')});
@@ -20,6 +20,37 @@ router.get('*', (req, res, next) => {
             res.send({success: true, data: results});
         }
     });
+});*/
+
+
+router.get('*', (req, res, next) => {
+    const order = req.query.order || 'asc';
+    const page = req.body.page || req.query.page || 1;
+    let search = req.body.search || req.query.search;
+    
+    if (search === undefined){
+        search = '%%';
+    }else{
+        search = '%' + search + '%';
+    }
+
+    const pageSize = req.body.pageSize || req.query.pageSize || 10;
+    const newPage = (page -1) * pageSize;
+
+    req.app.get('db').query(
+        'SELECT * FROM "Person" WHERE name ILIKE ${search} or gender ILIKE ${search} ORDER BY name '+ order +' LIMIT ${pageSize} OFFSET ${page}',
+        {pageSize: pageSize, search: search, page: newPage})
+    .then(results => {
+        if(results.length === 0){
+            res.send({success:false, message:res.__('api.person.get.empty')});
+        }else{
+            req.app.get('db').Person.count({
+            }).then(total => {
+                res.send({success: true, data: results, total: total, pageSize, page: page});
+            });
+        }
+    });
+
 });
 
 router.post('/save', (req, res, next) => {

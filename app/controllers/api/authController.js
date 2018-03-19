@@ -29,6 +29,7 @@ router.post('/login', (req, res, next) => {
                             if(err){
                                 res.send({success:false, message:err});
                             }else{
+                                console.log(jwt.decode(token));
                                 res.send({success: true, token: token});
                             }
                         });

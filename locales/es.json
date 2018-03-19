@@ -1,7 +1,9 @@
 {
-    "api.person.fields.empty": "Hay campos vacios",
-    "api.person.save.success": "Registro almacenado correctamente",
-    "api.person.delete.success": "Registro eliminado correctamente",
-    "api.auth.fields.empty": "Campos vacios",
-    "api.auth.login.data.error": "Error: El usuario y/o la contraseña son incorrectos"
+	"api.person.fields.empty": "Hay campos vacios",
+	"api.person.save.success": "Registro almacenado correctamente",
+	"api.person.delete.success": "Registro eliminado correctamente",
+	"api.auth.fields.empty": "Campos vacios",
+	"api.auth.login.data.error": "Error: El usuario y/o la contraseña son incorrectos",
+	"api.auth.logout.success": "api.auth.logout.success",
+	"api.person.get.empty": "api.person.get.empty"
 }
