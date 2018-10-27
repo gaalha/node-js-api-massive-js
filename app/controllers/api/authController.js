@@ -15,17 +15,17 @@ router.post('/login', (req, res, next) => {
             message: res.__('api.auth.fields.empty')
         });
     }else{
-        const username = req.body.txtUsername;
+        const user_name = req.body.txtUsername;
         let plainPassword = req.body.txtPassword;
 
-        req.app.get('db').User.find({username: username}).then(result => {
+        req.app.get('db').usuario.find({user_name: user_name}).then(result => {
             if(result.length === 0){
                 res.send({success: false, message:res.__('api.auth.login.data.error')});
             }else{
-                let User = result[0];
-                bcrypt.compare(plainPassword, User.password).then(isMatch => {
+                let usuario = result[0];
+                bcrypt.compare(plainPassword, usuario.password).then(isMatch => {
                     if(isMatch){
-                        jwt.sign({username: User.username, userid: User.userid}, req.app.get('secretKey'), (err, token) => {
+                        jwt.sign({user_name: usuario.user_name, user_id: usuario.user_id}, req.app.get('secretKey'), (err, token) => {
                             if(err){
                                 res.send({success:false, message:err});
                             }else{

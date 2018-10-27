@@ -12,13 +12,13 @@
         "cookie-parser": "~1.4.3",
         "cors": "^2.8.4",
         "debug": "~2.6.9",
-        "express": "~4.15.5",
+        "express": "^4.16.4",
         "express-validator": "^4.3.0",
         "i18n": "^0.8.3",
         "jsonwebtoken": "^8.1.1",
         "massive": "^4.6.3",
         "morgan": "~1.9.0",
-        "nodemon": "^1.17.2",
+        "nodemon": "^1.18.5",
         "serve-favicon": "~2.4.5"
     }
 }

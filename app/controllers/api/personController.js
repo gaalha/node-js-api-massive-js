@@ -3,7 +3,7 @@ let router = express.Router();
 
 router.get('/:id', (req, res, next) => {
     let id = req.params.id;
-    req.app.get('db').Person.find({personid: id}).then(result => {
+    req.app.get('db').person.find({person_id: id}).then(result => {
         if(result.length === 0){
             res.send({success:false, message:res.__('api.person.get.error')});
         }else{
@@ -38,13 +38,13 @@ router.get('*', (req, res, next) => {
     const newPage = (page -1) * pageSize;
 
     req.app.get('db').query(
-        'SELECT * FROM "Person" WHERE name ILIKE ${search} or gender ILIKE ${search} ORDER BY name '+ order +' LIMIT ${pageSize} OFFSET ${page}',
+        'SELECT * FROM "person" WHERE name ILIKE ${search} or gender ILIKE ${search} ORDER BY name '+ order +' LIMIT ${pageSize} OFFSET ${page}',
         {pageSize: pageSize, search: search, page: newPage})
     .then(results => {
         if(results.length === 0){
             res.send({success:false, message:res.__('api.person.get.empty')});
         }else{
-            req.app.get('db').Person.count({
+            req.app.get('db').person.count({
             }).then(total => {
                 res.send({success: true, data: results, total: total, pageSize, page: page});
             });
@@ -67,17 +67,18 @@ router.post('/save', (req, res, next) => {
         });
     }else{
         let id = req.body.txtPersonId;
-        let Person = {
+        let person = {
             name: req.body.txtName,
             age: req.body.txtAge,
-            gender: req.body.txtGender
+            gender: req.body.txtGender,
+            is_deleted: false
         };
 
         if(id != null && id != 0 && id != undefined){
-            Person.personid = req.body.txtPersonId;
+            person.person_id = req.body.txtPersonId;
         }
 
-        req.app.get('db').Person.save(Person).then(result => {
+        req.app.get('db').person.save(person).then(result => {
             if(result.length === 0){
                 res.send({success:false, message:res.__('api.person.save.error')});
             }else{
@@ -91,7 +92,7 @@ router.delete('/delete/:id', (req, res, next) => {
     let id = req.params.id;
     let success = null;
 
-    req.app.get('db').Person.destroy({personid: id}).then(result => {
+    req.app.get('db').person.destroy({person_id: id}).then(result => {
         if(result.length === 0){
             res.send({success:false, message:res.__('api.person.delete.error')});
         }else{

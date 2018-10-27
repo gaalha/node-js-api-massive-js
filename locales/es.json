@@ -5,5 +5,6 @@
 	"api.auth.fields.empty": "Campos vacios",
 	"api.auth.login.data.error": "Error: El usuario y/o la contraseña son incorrectos",
 	"api.auth.logout.success": "api.auth.logout.success",
-	"api.person.get.empty": "api.person.get.empty"
+	"api.person.get.empty": "api.person.get.empty",
+	"api.user.fields.empty": "api.user.fields.empty"
 }

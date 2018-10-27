@@ -1,7 +1,11 @@
 # History
 
+## v1.2.0 2018 March 22
+- Fixed CoffeeScript being a dependency instead of a dev dependency
+    - Thanks to [Nathan Thompson](https://github.com/thompsnm) for [issue #5](https://github.com/bevry/csextends/issues/5)
+
 ## v1.1.1 2017 April 25
-- Fixed coffee-script dependency missing from v1.1.0
+- Fixed CoffeeScript dependency missing from v1.1.0
 
 ## v1.1.0 2017 April 25
 - Updated base files

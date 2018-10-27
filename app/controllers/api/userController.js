@@ -11,6 +11,7 @@ router.post('/save', (req, res, next) => {
     let errors = req.validationErrors();
 
     if(errors){
+        console.log(errors);
         res.send({
             success: false,
             message: res.__('api.user.fields.empty')
@@ -18,21 +19,22 @@ router.post('/save', (req, res, next) => {
     }else{
         let id = req.body.txtIdUser;
         let plainPassword = req.body.txtPassword;
-        let createdAt = new Date();
+        let created_at = new Date();
 
-        let User = {
-            username: req.body.txtUsername,
-            createdAt: createdAt
+        let usuario = {
+            user_name: req.body.txtUsername,
+            created_at: created_at,
+            is_deleted: false
         };
 
         if(id != null && id != 0 && id != undefined){
-            User.userid = id;
+            usuario.user_id = id;
         }
 
         bcrypt.hash(plainPassword, saltRounds).then(hash => {
-            User.password = hash;
+            usuario.password = hash;
 
-            req.app.get('db').User.save(User).then(result => {
+            req.app.get('db').usuario.save(usuario).then(result => {
                 if(result.length === 0){
                     res.send({success:false, message:res.__('api.user.save.error')});
                 }else{

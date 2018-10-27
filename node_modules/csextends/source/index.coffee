@@ -6,11 +6,12 @@ module.exports = ->
 		oldKlass = @
 		proto = arguments[0]
 	newKlass = class extends oldKlass
-		constructor: ->
+		constructor: (args...) ->
 			if proto?.hasOwnProperty('constructor')
 				proto.constructor.apply(@, arguments)
 			else
-				super
+				super(args...)
+
 	if proto?
 		for own key,value of proto
 			newKlass::[key] = value
