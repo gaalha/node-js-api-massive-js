@@ -28,9 +28,9 @@ router.get('*', (req, res, next) => {
     const page = req.body.page || req.query.page || 1;
     let search = req.body.search || req.query.search;
     
-    if (search === undefined){
+    if (search === undefined) {
         search = '%%';
-    }else{
+    } else {
         search = '%' + search + '%';
     }
 
@@ -38,7 +38,7 @@ router.get('*', (req, res, next) => {
     const newPage = (page -1) * pageSize;
 
     req.app.get('db').query(
-        'SELECT * FROM "person" WHERE name ILIKE ${search} or gender ILIKE ${search} ORDER BY name '+ order +' LIMIT ${pageSize} OFFSET ${page}',
+        'SELECT * FROM "person" WHERE first_name ILIKE ${search} or gender ILIKE ${search} ORDER BY first_name '+ order +' LIMIT ${pageSize} OFFSET ${page}',
         {pageSize: pageSize, search: search, page: newPage})
     .then(results => {
         if(results.length === 0){
@@ -68,7 +68,7 @@ router.post('/save', (req, res, next) => {
     }else{
         let id = req.body.txtPersonId;
         let person = {
-            name: req.body.txtName,
+            first_name: req.body.txtName,
             age: req.body.txtAge,
             gender: req.body.txtGender,
             is_deleted: false

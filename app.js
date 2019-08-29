@@ -27,9 +27,9 @@ app.use(cors({origin: 'http://localhost:4200'}));
 massive({
     host: CONSTANTS.postgreHost,
     port: CONSTANTS.postgresPort,
-    database: 'peopledb',
-    user: 'postgres',
-    password: 'root'
+    database: 'angular_crud',
+    user: 'edgarmejia',
+    password: '123123123'
 }).then(instance => {
     app.set('db', instance);
 });
