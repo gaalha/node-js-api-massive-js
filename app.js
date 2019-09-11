@@ -19,6 +19,7 @@ i18n.configure({
 });
 
 const app = express();
+app.listen(3000);
 
 // use it before all route definitions
 app.use(cors({origin: 'http://localhost:4200'}));

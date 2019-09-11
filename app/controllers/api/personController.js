@@ -3,7 +3,7 @@ let router = express.Router();
 
 router.get('/:id', (req, res, next) => {
     let id = req.params.id;
-    req.app.get('db').person.find({person_id: id}).then(result => {
+    req.app.get('db').person.findOne({id: id}).then(result => {
         if(result.length === 0){
             res.send({success:false, message:res.__('api.person.get.error')});
         }else{
@@ -24,23 +24,44 @@ router.get('/:id', (req, res, next) => {
 
 
 router.get('*', (req, res, next) => {
+    let active = req.query.active || 'first_name';
     const order = req.query.order || 'asc';
     const page = req.body.page || req.query.page || 1;
     let search = req.body.search || req.query.search;
-    
-    if (search === undefined) {
-        search = '%%';
-    } else {
-        search = '%' + search + '%';
-    }
 
-    const pageSize = req.body.pageSize || req.query.pageSize || 10;
+    if (active === 'name') {active = 'first_name'}
+    if (search === undefined) {search = '%%';} 
+    else {search = '%' + search + '%';}
+
+    const  pageSize = req.body.pageSize || req.query.pageSize || 10;
     const newPage = (page -1) * pageSize;
 
-    req.app.get('db').query(
+    /*req.app.get('db').query(
         'SELECT * FROM "person" WHERE first_name ILIKE ${search} or gender ILIKE ${search} ORDER BY first_name '+ order +' LIMIT ${pageSize} OFFSET ${page}',
-        {pageSize: pageSize, search: search, page: newPage})
-    .then(results => {
+        {pageSize: pageSize, search: search, page: newPage})*/
+
+    /*req.app.get('db').person.find({},{
+        order: order,
+        offset: page,
+        limit: pageSize
+    })*/
+
+    req.app.get('db').person.find({
+        'deleted_at IS': 'NULL',
+        or: [
+            {'first_name ILIKE': search},
+            {'last_name ILIKE': search},
+            {'gender ILIKE': search}
+        ]},
+        {
+            order: [{
+                field: active,
+                direction: order,
+            }],
+            offset: newPage,
+            limit: pageSize
+        })
+    .then((results) => {
         if(results.length === 0){
             res.send({success:false, message:res.__('api.person.get.empty')});
         }else{
@@ -48,8 +69,11 @@ router.get('*', (req, res, next) => {
             }).then(total => {
                 res.send({success: true, data: results, total: total, pageSize, page: page});
             });
+            //res.send({success: true, data: results, total: results.length, pageSize, page: page});
         }
-    });
+    }).catch(error => {
+        next(error);
+    })
 
 });
 
@@ -75,7 +99,7 @@ router.post('/save', (req, res, next) => {
         };
 
         if(id != null && id != 0 && id != undefined){
-            person.person_id = req.body.txtPersonId;
+            person.id = req.body.txtPersonId;
         }
 
         req.app.get('db').person.save(person).then(result => {
@@ -92,7 +116,7 @@ router.delete('/delete/:id', (req, res, next) => {
     let id = req.params.id;
     let success = null;
 
-    req.app.get('db').person.destroy({person_id: id}).then(result => {
+    req.app.get('db').person.destroy({id: id}).then(result => {
         if(result.length === 0){
             res.send({success:false, message:res.__('api.person.delete.error')});
         }else{

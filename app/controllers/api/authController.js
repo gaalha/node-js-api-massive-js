@@ -18,14 +18,14 @@ router.post('/login', (req, res, next) => {
         const user_name = req.body.txtUsername;
         let plainPassword = req.body.txtPassword;
 
-        req.app.get('db').usuario.find({user_name: user_name}).then(result => {
+        req.app.get('db').user_app.findOne({user_name: user_name}).then(result => {
             if(result.length === 0){
                 res.send({success: false, message:res.__('api.auth.login.data.error')});
             }else{
-                let usuario = result[0];
-                bcrypt.compare(plainPassword, usuario.password).then(isMatch => {
+                //let user_app = result[0];
+                bcrypt.compare(plainPassword, result.password).then(isMatch => {
                     if(isMatch){
-                        jwt.sign({user_name: usuario.user_name, user_id: usuario.user_id}, req.app.get('secretKey'), (err, token) => {
+                        jwt.sign({user_name: result.user_name, id: result.id}, req.app.get('secretKey'), (err, token) => {
                             if(err){
                                 res.send({success:false, message:err});
                             }else{
