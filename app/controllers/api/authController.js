@@ -9,12 +9,12 @@ router.post('/login', (req, res, next) => {
 
     let errors = req.validationErrors();
 
-    if(errors){
+    if (errors) {
         res.send({
             success: false,
             message: res.__('api.auth.fields.empty')
         });
-    }else{
+    } else {
         const user_name = req.body.txtUsername;
         let plainPassword = req.body.txtPassword;
 
@@ -27,7 +27,7 @@ router.post('/login', (req, res, next) => {
                     if(isMatch){
                         jwt.sign({user_name: result.user_name, id: result.id}, req.app.get('secretKey'), (err, token) => {
                             if(err){
-                                res.send({success:false, message:err});
+                                res.send({success: false, message: err});
                             }else{
                                 console.log(jwt.decode(token));
                                 res.send({success: true, token: token});

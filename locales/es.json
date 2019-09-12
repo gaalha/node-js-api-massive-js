@@ -4,7 +4,10 @@
 	"api.person.delete.success": "Registro eliminado correctamente",
 	"api.auth.fields.empty": "Campos vacios",
 	"api.auth.login.data.error": "Error: El usuario y/o la contraseña son incorrectos",
-	"api.auth.logout.success": "Sesión cerrada exitosamente",
 	"api.person.get.empty": "Aú no se ha guardado ningun registro.",
-	"api.user.fields.empty": "Aú no se ha guardado ningun registro."
+	"api.user.fields.empty": "Aú no se ha guardado ningun registro.",
+	"api.auth.token.null": "Acceso denegado",
+	"api.auth.token.fail": "La sesión ha expirado",
+
+	"api.auth.logout.success": "Sesión cerrada exitosamente"
 }

@@ -1,4 +1,5 @@
 let jwt = require('jsonwebtoken');
+let CONSTANTS = require('../utils/constants');
 
 let verifyToken = (req, res, next) => {
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -9,22 +10,20 @@ let verifyToken = (req, res, next) => {
         if(token){
             jwt.verify(token, req.app.get('secretKey'), (err, decoded) => {
                 if(err){
-                    res.json({succes: false, message: 'api.auth.token.fail'});
-                }else{
+                    res.json({succes: false, message: res.__('api.auth.token.fail')});
+                } else {
                     req.decoded = decoded;
                     next();
                 }
             });
         }else{
-            res.status(403).send({succes: false, message: 'api.auth.token.null'});
+            res.status(CONSTANTS.httpCode.forbidden).send({succes: false, message: res.__('api.auth.token.null')});
         }
     }
 }
 
 function isOnPublicPages(path){
-    return (
-        path.indexOf('/login') !=-1
-    )
+    return path.indexOf('/login') != -1;
 }
 
 module.exports = verifyToken;
