@@ -1,5 +1,8 @@
 let express = require('express');
 let router = express.Router();
+let asyncHandler = require('../../utils/asyncHandler');
+let personService = require('../../services/personService');
+let {authJwt} = require('../../middlewares/authMiddleware');
 
 router.get('/:id', (req, res, next) => {
     let id = req.params.id;
@@ -13,7 +16,6 @@ router.get('/:id', (req, res, next) => {
         next(error);
     });
 });
-
 
 router.get('*', (req, res, next) => {
     let active = req.query.active || 'first_name';
@@ -89,8 +91,7 @@ router.post('/save', (req, res, next) => {
             person.created_at = new Date();
         }
 
-        req.app.get('db').person.save(person).then((result, error) => {
-            console.log(error);
+        req.app.get('db').person.save(person).then((result) => {
             if(result.length === 0){
                 res.send({success:false, message:res.__((isEditing ? 'api.person.update.error' : 'api.person.save.error'))});
             }else{
@@ -99,35 +100,50 @@ router.post('/save', (req, res, next) => {
         }).catch(error => {
             next(error);
         });
+
+        // req.app.get('db').person.save(person, (result, error) => {
+        //     console.log(result);
+        //     if(result.length === 0){
+        //         res.send({success:false, message:res.__((isEditing ? 'api.person.update.error' : 'api.person.save.error'))});
+        //     }else{
+        //         res.send({success:true, message:res.__((isEditing ? 'api.person.update.success' : 'api.person.save.success'))});
+        //     }
+        // });
     }
 });
 
-router.delete('/delete/:id', (req, res, next) => {
-    let id = req.params.id;
-    let person = {
-        id: id,
-        deleted_at: new Date()
-    }
+router.delete(
+    '/delete/:id',
+    authJwt(),
+    asyncHandler(async (req, res, next) => {
+        const result = await personService.deletePerson(req);
 
-    // req.app.get('db').person.destroy({id: id}).then(result => {
-    //     if(result.length === 0){
-    //         res.send({success:false, message:res.__('api.person.delete.error')});
-    //     }else{
-    //         res.send({success:true, message:res.__('api.person.delete.success')});
-    //     }
-    // });
-
-    req.app.get('db').person.save(person).then((result, error) => {
-        console.log(error);
-        if (result.length === 0) {
-            res.send({success:false, message:res.__('api.person.delete.error')});
-        } else {
+        if (result!==null) {
             res.send({success:true, message:res.__('api.person.delete.succes')});
+        } else {
+            res.send({success:false, message:res.__('api.person.delete.error')});
         }
-    }).catch(error => {
-        next(error);
-    });
-});
+    })
+);
+
+// router.delete('/delete/:id', (req, res, next) => {
+//     let id = req.params.id;
+//     let person = {
+//         id: id,
+//         deleted_at: new Date()
+//     }
+
+//     req.app.get('db').person.save(person).then((result, error) => {
+//         console.log(error);
+//         if (result.length === 0) {
+//             res.send({success:false, message:res.__('api.person.delete.error')});
+//         } else {
+//             res.send({success:true, message:res.__('api.person.delete.succes')});
+//         }
+//     }).catch(error => {
+//         next(error);
+//     });
+// });
 
 let normalizedInt = (num) => {
     num = num.replace(/%/g, '');

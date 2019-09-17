@@ -2,15 +2,14 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-
 const i18n = require('i18n');
 const expressValidator = require('express-validator');
 const massive = require('massive');
-
 const routes = require('./app/routes');
 const CONSTANTS = require('./app/utils/constants');
-
 const cors = require('cors');
+//const authMiddleware = './app/middlewares/authMiddleware';
+const {init} = require('./app/middlewares/authMiddleware');
 
 //Set locale
 i18n.configure({
@@ -20,6 +19,8 @@ i18n.configure({
 
 const app = express();
 app.listen(3000);
+
+init(app);
 
 // use it before all route definitions
 app.use(cors({origin: 'http://localhost:4200'}));
@@ -60,9 +61,9 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-  app.use((err, req, res, next) => {
-      res.status(err.status || 500);
-      res.send(err);
-  });
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.send(err);
+});
 
 module.exports = app;

@@ -17,27 +17,30 @@ router.post('/save', (req, res, next) => {
             message: res.__('api.user.fields.empty')
         });
     }else{
-        let id = req.body.txtIdUser;
-        let plainPassword = req.body.txtPassword;
-        let created_at = new Date();
+        const id = req.body.txtIdUser;
+        const plainPassword = req.body.txtPassword;
 
-        let usuario = {
-            user_name: req.body.txtUsername,
-            created_at: created_at,
-            is_deleted: false
+        const isEditing = id != null && id != 0 && id != undefined;
+
+        let user_app = {
+            user_name: req.body.txtUsername
         };
 
-        if(id != null && id != 0 && id != undefined){
-            usuario.user_id = id;
+        if (isEditing) {
+            user_app.id = id;
+            user_app.updated_at = new Date();
+        } else {
+            user_app.created_at = new Date();
         }
 
         bcrypt.hash(plainPassword, saltRounds).then(hash => {
-            usuario.password = hash;
+            user_app.password = hash;
 
-            req.app.get('db').usuario.save(usuario).then(result => {
-                if(result.length === 0){
+            req.app.get('db').user_app.save(user_app).then((result, error) => {
+                console.log(result);
+                if (result.length === 0) {
                     res.send({success:false, message:res.__('api.user.save.error')});
-                }else{
+                } else {
                     res.send({success:true, message:res.__('api.user.save.success')});
                 }
             });
