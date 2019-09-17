@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const i18n = require('i18n');
@@ -8,25 +7,27 @@ const massive = require('massive');
 const routes = require('./app/routes');
 const CONSTANTS = require('./app/utils/constants');
 const cors = require('cors');
-//const authMiddleware = './app/middlewares/authMiddleware';
 const {init} = require('./app/middlewares/authMiddleware');
+let database = require('./db/dataBase');
+
+const app = express();
+app.listen(3000);
+init(app);
+
+//await database.init();
 
 //Set locale
 i18n.configure({
     locales:['en', 'es'],
     directory: __dirname + '/locales'
 });
-
-const app = express();
-app.listen(3000);
-
-init(app);
+app.use(i18n.init);
 
 // use it before all route definitions
 app.use(cors({origin: 'http://localhost:4200'}));
 
 //Set up Massive-js
-massive({
+/*massive({
     host: CONSTANTS.postgreHost,
     port: CONSTANTS.postgresPort,
     database: 'angular_crud',
@@ -34,16 +35,14 @@ massive({
     password: '123123123'
 }).then(instance => {
     app.set('db', instance);
-});
-
-app.use(i18n.init);
+});*/
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
-app.set('secretKey', 'kl-AHSfdlk-jadshkjlasdf-lkjAShdkjS');
+//app.set('secretKey', 'kl-AHSfdlk-jadshkjlasdf-lkjAShdkjS');
 
 routes(app);
 

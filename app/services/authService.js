@@ -9,7 +9,7 @@ function createJwtToken(userId, username) {
 class authService {
 
     static async findById(id) {
-        const result = await req.app.get('db').user_app.findOne(Number(id));
+        const result = await app.get('db').user_app.findOne(Number(id));
         return result;
     }
 

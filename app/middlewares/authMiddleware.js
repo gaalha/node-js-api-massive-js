@@ -30,8 +30,7 @@ const opts = {
     }
     
     let authJwt = () => {
-        console.log(passport.authenticate("jwt", { session: false }))
-        return passport.authenticate("jwt", { session: false });
+        return passport.authenticate('jwt', { session: false });
     }
 //}
 
