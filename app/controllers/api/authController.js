@@ -11,7 +11,7 @@ router.post(
     })
 );
 
-router.get('/logout', (req, res, next) => {
+router.get('/logout', (req, res) => {
     req.decoded = null;
     res.send({success: true, message:res.__('api.auth.logout.success')});
 });

@@ -26,7 +26,7 @@ class personService {
         const newPage = (page -1) * pageSize;
 
         if (search === undefined) {search = '%%';} 
-        //else {search = '%' + search + '%';}
+
         const CRITERIA = {
             'deleted_at IS': 'NULL',
             or: [

@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let bcrypt = require('bcrypt');
-const saltRounds = 10;
+const saltRounds = 10; // TODO:
 
 router.post('/save', (req, res, next) => {
     req.checkBody('txtIdUser').trim();
