@@ -11,28 +11,26 @@ const opts = {
     secretOrKey: CONSTANTS.jwtSecret
 };
 
-//class authMiddleware {
-    let init = (app) => {
-        app.use(passport.initialize());
-        passport.use(
-            new JwtStrategy(opts, async (jwtPayload, done, error) => {
-                try {
-                    const user = await authService.findById(jwtPayload.id);
-                    if (user) {
-                        return done(null, user);
-                    }
-                    return done(null, false);
-                } catch (error) {
-                    return done(error, false);
+let init = (app) => {
+    app.use(passport.initialize());
+    passport.use(
+        new JwtStrategy(opts, async (jwtPayload, done, error) => {
+            try {
+                const user = await authService.findById(jwtPayload.id);
+                if (user) {
+                    return done(null, user);
                 }
-            })
-        );
-    }
-    
-    let authJwt = () => {
-        return passport.authenticate('jwt', { session: false });
-    }
-//}
+                return done(null, false);
+            } catch (error) {
+                return done(error, false);
+            }
+        })
+    );
+}
+
+let authJwt = () => {
+    return passport.authenticate('jwt', { session: false });
+}
 
 module.exports = {
     init: init,

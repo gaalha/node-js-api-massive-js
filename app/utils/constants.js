@@ -9,7 +9,7 @@ let postgreUser = process.env.postgreUser || 'edgarmejia';
 let postgrePass = process.env.postgrePass || '123123123';
 
 let jwtSecret = process.env.jwtSecret || 'kl-AHSfdlk-jadshkjlasdf-lkjAShdkjS';
-let jwtExpiration = process.env.jwtExpiration || 86400;
+let jwtExpiration = process.env.jwtExpiration || 3600; // --> seconds = 24h (86400)
 
 const httpCode = {
     success: 200,
