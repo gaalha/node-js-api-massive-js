@@ -1,6 +1,7 @@
 let bcrypt = require('bcrypt');
 let jwt = require('jsonwebtoken');
 const CONSTANTS = require('../utils/constants');
+let db = require('../../db/dataBase');
 
 function createJwtToken(userId, username) {
     return jwt.sign({ user_name: username, id: userId }, CONSTANTS.jwtSecret, {expiresIn: CONSTANTS.jwtExpiration });
@@ -9,7 +10,7 @@ function createJwtToken(userId, username) {
 class authService {
 
     static async findById(id) {
-        const result = await app.get('db').user_app.findOne(Number(id));
+        const result = await db.pg.user_app.findOne(Number(id));
         return result;
     }
 
@@ -25,8 +26,7 @@ class authService {
             const user_name = req.body.txtUsername;
             const plainPassword = req.body.txtPassword;
 
-            const result = await req.app.get('db').user_app.findOne({'deleted_at IS': 'NULL', user_name: user_name});
-            
+            const result = await db.pg.user_app.findOne({'deleted_at IS': 'NULL', user_name: user_name});
             if (result.length === 0) {
                 return {success: false, message: res.__('api.auth.login.data.error'), token: null}
             } else {

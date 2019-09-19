@@ -14,7 +14,7 @@ const app = express();
 app.listen(3000);
 init(app);
 
-//await database.init();
+database.init();
 
 //Set locale
 i18n.configure({
@@ -27,15 +27,15 @@ app.use(i18n.init);
 app.use(cors({origin: 'http://localhost:4200'}));
 
 //Set up Massive-js
-/*massive({
-    host: CONSTANTS.postgreHost,
-    port: CONSTANTS.postgresPort,
-    database: 'angular_crud',
-    user: 'edgarmejia',
-    password: '123123123'
-}).then(instance => {
-    app.set('db', instance);
-});*/
+// massive({
+//     host: CONSTANTS.postgreHost,
+//     port: CONSTANTS.postgresPort,
+//     database: 'angular_crud',
+//     user: 'edgarmejia',
+//     password: '123123123'
+// }).then(instance => {
+//     app.set('db', instance);
+// });
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -45,13 +45,6 @@ app.use(expressValidator());
 //app.set('secretKey', 'kl-AHSfdlk-jadshkjlasdf-lkjAShdkjS');
 
 routes(app);
-
-/*app.all('*', (req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
-    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS, PATCH');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
-    next();
-});*/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

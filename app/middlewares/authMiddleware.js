@@ -7,6 +7,7 @@ let authService = require('../services/authService');
 
 const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT'), // JWT x-access-token
+    // jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT'), // JWT x-access-token
     secretOrKey: CONSTANTS.jwtSecret
 };
 
@@ -14,8 +15,7 @@ const opts = {
     let init = (app) => {
         app.use(passport.initialize());
         passport.use(
-            new JwtStrategy(opts, async (jwtPayload, done) => {
-                //console.log(opts);
+            new JwtStrategy(opts, async (jwtPayload, done, error) => {
                 try {
                     const user = await authService.findById(jwtPayload.id);
                     if (user) {

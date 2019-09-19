@@ -1,3 +1,5 @@
+let projectName = process.env.projectName || 'node-js-api-massive-js';
+
 let domain = process.env.APIPERSONA_DOMAIN || 'http://localhost:3000/';
 let postgreHost = process.env.postgre_HOST || 'localhost';
 let postgrePort = process.env.postgre_PORT || '5432';

@@ -10,13 +10,6 @@ class Database {
     }
 
     async init() {
-        /*const {
-        pgHost: host,
-        pgPort: port,
-        pgDBname: database,
-        pgUserName: user,
-        pgPassword: password
-        } = config;*/
         this.pg = await massive({
             host: CONSTANTS.postgreHost,
             port: CONSTANTS.postgresPort,
