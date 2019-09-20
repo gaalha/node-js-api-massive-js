@@ -7,7 +7,7 @@ let {authJwt} = require('../../middlewares/authMiddleware');
 router.get(
     '/:id',
     authJwt(),
-    asyncHandler(async (req, res, next) => {
+    asyncHandler(async (req, res) => {
         const result = await personService.getOne(req);
 
         if (result.length === 0) { res.send({success:false, message:res.__('api.person.get.error')}); }
@@ -18,7 +18,7 @@ router.get(
 router.get(
     '*',
     authJwt(),
-    asyncHandler(async (req, res, next) => {
+    asyncHandler(async (req, res) => {
         const page = req.body.page || req.query.page || 1;
         const pageSize = req.body.pageSize || req.query.pageSize || 10;
         const result = await personService.getAll(req, page, pageSize);
@@ -35,7 +35,7 @@ router.get(
 router.post(
     '/save',
     authJwt(),
-    asyncHandler(async (req, res, next) => {
+    asyncHandler(async (req, res) => {
         req.checkBody('id').trim();
         req.checkBody('txtFirstName').trim().notEmpty();
         req.checkBody('txtLastName').trim().notEmpty();

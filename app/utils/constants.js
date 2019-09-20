@@ -9,6 +9,7 @@ let postgreUser = process.env.postgreUser || 'edgarmejia';
 let postgrePass = process.env.postgrePass || '123123123';
 
 let jwtSecret = process.env.jwtSecret || 'kl-AHSfdlk-jadshkjlasdf-lkjAShdkjS';
+let saltRounds = process.env.saltRounds || 10;
 let jwtExpiration = process.env.jwtExpiration || 3600; // --> seconds = 24h (86400)
 
 const httpCode = {
@@ -32,5 +33,6 @@ module.exports = Object.freeze({
 
     httpCode: httpCode,
     jwtSecret: jwtSecret,
-    jwtExpiration: jwtExpiration
+    jwtExpiration: jwtExpiration,
+    saltRounds: saltRounds
 });
