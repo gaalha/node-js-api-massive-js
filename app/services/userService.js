@@ -15,12 +15,10 @@ class userService {
             user_app.created_at = new Date();
         }
 
-        bcrypt.hash(plainPassword, CONSTANTS.saltRounds).then(hash => {
-            user_app.password = hash;
-
-            let result = await db.pg.user_app.save(user_app);
-            return result;
-        });
+        user_app.password = await bcrypt.hash(plainPassword, CONSTANTS.saltRounds); //.then(hash => {
+        let result = await db.pg.user_app.save(user_app);
+        
+        return result;
     }
 }
 

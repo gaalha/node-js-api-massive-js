@@ -1,6 +1,8 @@
 let express = require('express');
 let router = express.Router();
 let userService = require('../../services/userService');
+let asyncHandler = require('../../utils/asyncHandler');
+let {authJwt} = require('../../middlewares/authMiddleware');
 
 router.post(
     '/save',
