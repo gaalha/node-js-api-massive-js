@@ -12,8 +12,7 @@ router.post(
         req.checkBody('txtUsername').trim().notEmpty();
         req.checkBody('txtPassword').trim().notEmpty();
 
-        const username = req.body.txtUsername;
-        const plainPassword = req.body.txtPassword;
+        const [username, plainPassword, id]=[req.body.txtUsername, req.body.txtPassword, req.body.txtIdUser];
 
         let errors = req.validationErrors();
 
@@ -23,7 +22,7 @@ router.post(
                 message: res.__('api.user.fields.empty')
             });
         } else {
-            const isEditing = id != null && id != 0 && id != undefined;
+            const isEditing = id !== undefined && id && id !== 0;
             const result = await userService.save(isEditing, id, username, plainPassword);
 
             if (result.length === 0) {
