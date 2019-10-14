@@ -16,9 +16,7 @@ class userService {
         }
 
         user_app.password = await bcrypt.hash(plainPassword, CONSTANTS.saltRounds); //.then(hash => {
-        let result = await db.pg.user_app.save(user_app);
-        
-        return result;
+        return db.pg.user_app.save(user_app);
     }
 }
 
