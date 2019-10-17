@@ -6,13 +6,13 @@ let { authJwt } = require('../../middlewares/authMiddleware');
 
 router.post(
     '/save',
-    //authJwt(),
     asyncHandler(async (req, res) => {
         req.checkBody('txtIdUser').trim();
         req.checkBody('txtUsername').trim().notEmpty();
         req.checkBody('txtPassword').trim().notEmpty();
+        req.checkBody('txtEmail').trim();
 
-        const [username, plainPassword, id]=[req.body.txtUsername, req.body.txtPassword, req.body.txtIdUser];
+        const [username, plainPassword, id, email]=[req.body.txtUsername, req.body.txtPassword, req.body.txtIdUser, req.body.txtEmail];
 
         let errors = req.validationErrors();
 
@@ -23,7 +23,7 @@ router.post(
             });
         } else {
             const isEditing = id !== undefined && id && id !== 0;
-            const result = await userService.save(isEditing, id, username, plainPassword);
+            const result = await userService.save(isEditing, id, username, plainPassword, email);
 
             if (result.length === 0) {
                 res.send({ success: false, message: res.__('api.user.save.error') });
