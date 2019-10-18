@@ -5,7 +5,7 @@ const i18n = require('i18n');
 const expressValidator = require('express-validator');
 const routes = require('./app/routes');
 const cors = require('cors');
-const {init} = require('./app/middlewares/authMiddleware');
+const { init } = require('./app/middlewares/authMiddleware');
 let database = require('./db/dataBase');
 
 const app = express();
