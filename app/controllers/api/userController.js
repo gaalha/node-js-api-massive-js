@@ -10,20 +10,16 @@ router.post(
         req.checkBody('txtIdUser').trim();
         req.checkBody('txtUsername').trim().notEmpty();
         req.checkBody('txtPassword').trim().notEmpty();
-        req.checkBody('txtEmail').trim().notEmpty();
+        req.checkBody('txtEmail').trim();
 
-        const [username, plainPassword, id, email] = [req.body.txtUsername, req.body.txtPassword, req.body.txtIdUser, req.body.txtEmail];
+        const [username, plainPassword, id, email]=[req.body.txtUsername, req.body.txtPassword, req.body.txtIdUser, req.body.txtEmail];
 
         let errors = req.validationErrors();
+
         if (errors) {
-            let message;
-            if (errors[0].param !== undefined && errors[0].param != null && errors[0].param.length > 0)
-                message = res.__('api.user.fields.empty.with.field') + errors[0].param;
-            else
-                res.__('api.user.fields.empty');
             res.send({
                 success: false,
-                message: message
+                message: res.__('api.user.fields.empty')
             });
         } else {
             const isEditing = id !== undefined && id && id !== 0;

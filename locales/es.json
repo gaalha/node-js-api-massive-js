@@ -8,9 +8,8 @@
 	
 	"api.auth.fields.empty": "Campos vacios",
 	"api.auth.login.data.error": "Error: El usuario y/o la contraseña son incorrectos",
-	"api.person.get.empty": "Aún no se ha guardado ningun registro.",
-	"api.user.fields.empty": "Aún no se ha guardado ningun registro.",
-	"api.user.fields.empty.with.field": "Aún no se ha guardado ningun registro. El campo erroneo es: ",
+	"api.person.get.empty": "Aú no se ha guardado ningun registro.",
+	"api.user.fields.empty": "Aú no se ha guardado ningun registro.",
 	"api.auth.token.null": "Acceso denegado",
 	"api.auth.token.fail": "La sesión ha expirado",
 	"api.auth.logout.success": "Sesión cerrada exitosamente",
