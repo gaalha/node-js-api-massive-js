@@ -23,8 +23,8 @@ router.post(
                 res.__('api.user.fields.empty');
             res.send({
                 success: false,
-                message
-                });
+                message: message
+            });
         } else {
             const isEditing = id !== undefined && id && id !== 0;
             const result = await userService.save(isEditing, id, username, plainPassword, email);
