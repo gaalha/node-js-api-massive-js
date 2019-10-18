@@ -49,6 +49,7 @@ router.post(
                 message: res.__('api.person.fields.empty')
             });
         } else {
+            let isEditing = req.body.id!==undefined && req.body.id;
             const result = await personService.save(req);
 
             if (result.length === 0) {
