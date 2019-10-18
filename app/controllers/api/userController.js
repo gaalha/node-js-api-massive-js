@@ -1,49 +1,41 @@
 let express = require('express');
 let router = express.Router();
-let bcrypt = require('bcrypt');
-const saltRounds = 10; // TODO:
+let userService = require('../../services/userService');
+let asyncHandler = require('../../utils/asyncHandler');
+let { authJwt } = require('../../middlewares/authMiddleware');
 
-router.post('/save', (req, res, next) => {
-    req.checkBody('txtIdUser').trim();
-    req.checkBody('txtUsername').trim().notEmpty();
-    req.checkBody('txtPassword').trim().notEmpty();
+router.post(
+    '/save',
+    asyncHandler(async (req, res) => {
+        req.checkBody('txtIdUser').trim();
+        req.checkBody('txtUsername').trim().notEmpty();
+        req.checkBody('txtPassword').trim().notEmpty();
+        req.checkBody('txtEmail').trim().notEmpty();
 
-    let errors = req.validationErrors();
+        const [username, plainPassword, id, email] = [req.body.txtUsername, req.body.txtPassword, req.body.txtIdUser, req.body.txtEmail];
 
-    if(errors){
-        res.send({
-            success: false,
-            message: res.__('api.user.fields.empty')
-        });
-    }else{
-        const id = req.body.txtIdUser;
-        const plainPassword = req.body.txtPassword;
-
-        const isEditing = id != null && id != 0 && id != undefined;
-
-        let user_app = {
-            user_name: req.body.txtUsername
-        };
-
-        if (isEditing) {
-            user_app.id = id;
-            user_app.updated_at = new Date();
-        } else {
-            user_app.created_at = new Date();
-        }
-
-        bcrypt.hash(plainPassword, saltRounds).then(hash => {
-            user_app.password = hash;
-
-            req.app.get('db').user_app.save(user_app).then((result, error) => {
-                if (result.length === 0) {
-                    res.send({success:false, message:res.__('api.user.save.error')});
-                } else {
-                    res.send({success:true, message:res.__('api.user.save.success')});
-                }
+        let errors = req.validationErrors();
+        if (errors) {
+            let message;
+            if (errors[0].param !== undefined && errors[0].param != null && errors[0].param.length > 0)
+                message = res.__('api.user.fields.empty.with.field') + errors[0].param;
+            else
+                res.__('api.user.fields.empty');
+            res.send({
+                success: false,
+                message: message
             });
-        });
-    }
-});
+        } else {
+            const isEditing = id !== undefined && id && id !== 0;
+            const result = await userService.save(isEditing, id, username, plainPassword, email);
+
+            if (result.length === 0) {
+                res.send({ success: false, message: res.__('api.user.save.error') });
+            } else {
+                res.send({ success: true, message: res.__('api.user.save.success') });
+            }
+        }
+    })
+);
 
 module.exports = router;
