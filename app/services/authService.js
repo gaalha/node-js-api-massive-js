@@ -10,8 +10,7 @@ function createJwtToken(userId, username) {
 class authService {
 
     static async findById(id) {
-        const result = await db.pg.user_app.findOne(Number(id));
-        return result;
+        return await db.pg.user_app.findOne(Number(id));
     }
 
     static async login(req, res) {

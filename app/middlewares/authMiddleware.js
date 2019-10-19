@@ -7,7 +7,6 @@ let authService = require('../services/authService');
 
 const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT'), // JWT x-access-token
-    // jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT'), // JWT x-access-token
     secretOrKey: CONSTANTS.jwtSecret
 };
 
@@ -26,11 +25,11 @@ let init = (app) => {
             }
         })
     );
-}
+};
 
 let authJwt = () => {
     return passport.authenticate('jwt', { session: false });
-}
+};
 
 module.exports = {
     init: init,
