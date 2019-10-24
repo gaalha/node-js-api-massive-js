@@ -5,28 +5,27 @@ class personService {
     static async deletePerson(req) {
         let id = req.params.id;
         let person = {
-        id: id,
+            id: id,
             deleted_at: new Date()
-        }
+        };
 
-        const result = await db.pg.person.save(person);
-        return result;
+        return db.pg.person.save(person);
     }
 
     static async getOne(req) {
         let id = req.params.id;
-        const result = await db.pg.person.findOne({id: id});
-        return result;
+        return await db.pg.person.findOne({id: id});
     }
 
     static async getAll(req, page, pageSize) {
         let active = req.query.active || 'first_name';
         const order = req.query.order || 'asc';
         let search = req.body.search || req.query.search;
-        const newPage = (page -1) * pageSize;
+        const newPage = (page - 1) * pageSize;
 
-        if (search === undefined) {search = '%%';} 
-        //else {search = '%' + search + '%';}
+        if (search === undefined) {
+            search = '%%';
+        }
         const CRITERIA = {
             'deleted_at IS': 'NULL',
             or: [
@@ -35,9 +34,9 @@ class personService {
                 {'age =': isNaN(parseInt(search)) ? 0 : parseInt(search)},
                 {'gender ILIKE': '%' + search + '%'}
             ]
-        }
+        };
 
-        const result = await db.pg.person.find(CRITERIA,
+        return await db.pg.person.find(CRITERIA,
             {
                 order: [{
                     field: active,
@@ -46,14 +45,11 @@ class personService {
                 offset: newPage,
                 limit: pageSize
             }
-        )
-
-        return result;
+        );
     }
 
     static async getAllCount() {
-        let result = await db.pg.person.count({'deleted_at IS': 'NULL',});
-        return result;
+        return await db.pg.person.count({'deleted_at IS': 'NULL',});
     }
 
     static async save(req) {
@@ -64,7 +60,7 @@ class personService {
             age: req.body.txtAge,
             gender: req.body.txtGender,
         };
-        const isEditing = id != null && id != 0 && id != undefined;
+        const isEditing = id !== undefined && id != null && id !== 0;
 
         if (isEditing) {
             person.id = id;
@@ -72,9 +68,7 @@ class personService {
         } else {
             person.created_at = new Date();
         }
-
-        let result = await db.pg.person.save(person);
-        return result;
+        return db.pg.person.save(person);
     }
 
 }

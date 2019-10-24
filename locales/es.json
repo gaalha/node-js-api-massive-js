@@ -14,5 +14,5 @@
 	"api.auth.token.null": "Acceso denegado",
 	"api.auth.token.fail": "La sesión ha expirado",
 	"api.auth.logout.success": "Sesión cerrada exitosamente",
-	"api.person.delete.succes": "api.person.delete.succes"
+	"api.person.delete.succes": "Persona eliminada exitosamente."
 }
