@@ -1,11 +1,7 @@
 {
     "name": "node-js-api-massive-js",
     "version": "0.0.3",
-    "author": {
-        "name": "Edgar Mejía",
-        "email": "edgar13155@gmail.com",
-        "url": "https://edgarmejia.github.io"
-    },
+    "author": "Edgar Mejía <edgar13155@gmail.com> (https://edgarmejia.github.io)",
     "private": true,
     "scripts": {
         "start": "nodemon app.js"
@@ -28,5 +24,8 @@
     },
     "devDependencies": {
         "nodemon": "^1.19.2"
-    }
+    },
+    "main": "index.js",
+    "repository": "https://github.com/edgarMejia/node-js-api-massive-js.git",
+    "license": "MIT"
 }
