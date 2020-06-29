@@ -5,5 +5,5 @@ const userController = require('./controllers/api/userController');
 module.exports = function (app) {
     app.use('/api/auth',               authController);
     app.use('/api/user',               userController);
-    app.use('/api/prson',             personController);
+    app.use('/api/person',             personController);
 }
