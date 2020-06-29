@@ -49,12 +49,19 @@ router.post(
                 message: res.__('api.person.fields.empty')
             });
         } else {
-            const result = await personService.save(req);
+            const personId = req.body.id;
+            const result = await personService.save(req, personId);
 
-            if (result.length === 0) {
-                res.send({success:false, message:res.__((isEditing ? 'api.person.update.error' : 'api.person.save.error'))});
+            if (result) {
+                res.send({
+                    success:true,
+                    message:res.__((personId ? 'api.person.update.success' : 'api.person.save.success'))
+                });
             } else {
-                res.send({success:true, message:res.__((isEditing ? 'api.person.update.success' : 'api.person.save.success'))});
+                res.send({
+                    success:false,
+                    message:res.__((personId ? 'api.person.update.error' : 'api.person.save.error'))
+                });
             }
         }
     })

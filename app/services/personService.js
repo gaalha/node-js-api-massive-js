@@ -20,8 +20,8 @@ class personService {
     }
 
     static async getAll(req, page, pageSize) {
-        let active = req.query.active || 'first_name';
-        const order = req.query.order || 'asc';
+        let active = req.query.active || 'id';
+        const order = req.query.order || 'desc';
         let search = req.body.search || req.query.search;
         const newPage = (page -1) * pageSize;
 
@@ -56,18 +56,16 @@ class personService {
         return result;
     }
 
-    static async save(req) {
-        let id = req.body.id;
+    static async save(req, personId) {
         let person = {
             first_name: req.body.txtFirstName,
             last_name: req.body.txtLastName,
             age: req.body.txtAge,
             gender: req.body.txtGender,
         };
-        const isEditing = id != null && id != 0 && id != undefined;
 
-        if (isEditing) {
-            person.id = id;
+        if (personId) {
+            person.id = personId;
             person.updated_at = new Date();
         } else {
             person.created_at = new Date();

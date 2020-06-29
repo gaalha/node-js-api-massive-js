@@ -8,7 +8,6 @@ function createJwtToken(userId, username) {
 }
 
 class authService {
-
     static async findById(id) {
         const result = await db.pg.user_app.findOne(Number(id));
         return result;
@@ -19,9 +18,8 @@ class authService {
         const plainPassword = req.body.txtPassword;
 
         const result = await db.pg.user_app.findOne({ 'deleted_at IS': 'NULL', user_name: user_name });
-        if (result.length === 0) {
-            return { success: false, message: res.__('api.auth.login.data.error'), token: null }
-        } else {
+
+        if (result) {
             const checkPassword = await bcrypt.compare(plainPassword, result.password);
 
             if (!checkPassword) {
@@ -30,6 +28,8 @@ class authService {
 
             const token = createJwtToken(result.id, result.user_name);
             return { success: true, message: 'Access data', token: token };
+        } else {
+            return { success: false, message: res.__('api.auth.login.data.error'), token: null }
         }
     }
 
