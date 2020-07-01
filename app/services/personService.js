@@ -71,8 +71,7 @@ class personService {
             person.created_at = new Date();
         }
 
-        let result = await db.pg.person.save(person);
-        return result;
+        return db.pg.person.save(person);
     }
 
 }

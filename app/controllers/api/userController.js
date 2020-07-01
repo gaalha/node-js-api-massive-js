@@ -7,12 +7,12 @@ let { authJwt } = require('../../middlewares/authMiddleware');
 router.post(
     '/save',
     asyncHandler(async (req, res) => {
-        req.checkBody('txtIdUser').trim();
-        req.checkBody('txtUsername').trim().notEmpty();
-        req.checkBody('txtPassword').trim().notEmpty();
-        req.checkBody('txtEmail').trim().notEmpty();
+        req.checkBody('id').trim();
+        req.checkBody('user_name').trim().notEmpty();
+        req.checkBody('email').trim().notEmpty();
+        req.checkBody('password').trim().notEmpty();
 
-        const [username, plainPassword, id, email] = [req.body.txtUsername, req.body.txtPassword, req.body.txtIdUser, req.body.txtEmail];
+        const [id, user_name, email, password] = [req.body.id, req.body.user_name, req.body.email, req.body.password];
 
         let errors = req.validationErrors();
         if (errors) {
@@ -26,13 +26,18 @@ router.post(
                 message: message
             });
         } else {
-            const isEditing = id !== undefined && id && id !== 0;
-            const result = await userService.save(isEditing, id, username, plainPassword, email);
+            const result = await userService.save(id, user_name, email, password);
 
-            if (result.length === 0) {
-                res.send({ success: false, message: res.__('api.user.save.error') });
+            if (result) {
+                res.send({
+                    success: true,
+                    message: id ? res.__('api.user.update.success') : res.__('api.user.save.success')
+                });
             } else {
-                res.send({ success: true, message: res.__('api.user.save.success') });
+                res.send({
+                    success: false,
+                    message: id ? res.__('api.user.update.error') : res.__('api.user.save.error')
+                });
             }
         }
     })

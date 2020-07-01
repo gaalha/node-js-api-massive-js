@@ -20,7 +20,8 @@
         "morgan": "~1.9.0",
         "passport": "^0.4.0",
         "passport-jwt": "^4.0.0",
-        "serve-favicon": "~2.4.5"
+        "serve-favicon": "~2.4.5",
+        "typescript": "^3.9.6"
     },
     "devDependencies": {
         "nodemon": "^1.19.2"

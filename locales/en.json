@@ -13,5 +13,6 @@
 	"api.auth.token.fail": "The session has expired",
 	"api.auth.logout.success": "Logout success",
 	"api.person.delete.succes": "api.person.delete.succes",
-	"api.auth.fields.empty": "api.auth.fields.empty"
+	"api.auth.fields.empty": "api.auth.fields.empty",
+	"api.person.get.empty": "api.person.get.empty"
 }
