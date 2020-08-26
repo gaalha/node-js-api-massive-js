@@ -1,4 +1,4 @@
-# PersonAPI
+# node-js-api-massive-js
 Basic API with NodeJS: sessions, JSON Web Token (JWT), routes & pagination.
 
 Used database: [link](https://github.com/edgarMejia/node-js-api-massive-js/blob/master/db/db_query.sql)
