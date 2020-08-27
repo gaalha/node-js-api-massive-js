@@ -147,7 +147,7 @@ Use x-www-form-urlencoded body
 }
 ```
 
-### Delete one client response example
+### Delete one user response example
 
 ```json
 {
