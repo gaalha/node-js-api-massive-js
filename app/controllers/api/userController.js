@@ -6,6 +6,7 @@ let { authJwt } = require('../../middlewares/authMiddleware');
 
 router.post(
     '/save',
+    authJwt(),
     asyncHandler(async (req, res) => {
         req.checkBody('id').trim();
         req.checkBody('user_name').trim().notEmpty();

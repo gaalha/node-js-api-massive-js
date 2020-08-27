@@ -24,7 +24,7 @@ class userService {
     }
 
     static async getAll(req, page, pageSize) {
-        let active = req.query.active || 'id';
+        const active = req.query.active || 'id';
         const order = req.query.order || 'desc';
         let search = req.body.search || req.query.search;
         const newPage = (page -1) * pageSize;

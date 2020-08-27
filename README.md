@@ -11,9 +11,12 @@ Used database: [link](https://github.com/edgarMejia/node-js-api-massive-js/blob/
 | Logout | GET | `BASE_URL`/api/auth/logout **(session required)** |
 
 ### Login form
+Use x-www-form-urlencoded body
 
-- `txtUsername` required
-- `txtPassword` required
+| **Key** | **Value** | **Required** |
+| ------ | ------ | ------ |
+| txtUsername | string | ✅ |
+| txtPassword | string | ✅ |
 
 ### Login response examples
 
@@ -36,6 +39,17 @@ Used database: [link](https://github.com/edgarMejia/node-js-api-massive-js/blob/
 ```
 
 ## User
+Note that all this methods are **session required** so you have to add a header in all your requests
+
+### Headers
+
+Note that you have to add a space between `JWT` and your auth token like the example below.
+
+| **key** | **value** |
+| ------ | ------ |
+| Authorization | `JWT your_sexy_token` |
+
+### Endpoints
 
 | **Name** | **Type** | **URL** |
 | ------ | ------ | ------ |
@@ -45,11 +59,14 @@ Used database: [link](https://github.com/edgarMejia/node-js-api-massive-js/blob/
 | Delete one **WIP** | DELETE | `BASE_URL`/api/user/delete/:id **(session required)** |
 
 ### Save user form
+Use x-www-form-urlencoded body
 
-- `id` --> Only required when you're editing
-- `user_name`
-- `email`
-- `password`
+| **Key** | **Value** | **Required** |
+| ------ | ------ | ------ |
+| id | string | ❌ Only required when you're editing |
+| user_name | string | ✅ |
+| email | string | ✅ |
+| password | string | ✅ |
 
 ### Save user response example
 
@@ -58,6 +75,91 @@ Used database: [link](https://github.com/edgarMejia/node-js-api-massive-js/blob/
     "success": true,
     "message": "User saved success"
 }
+```
+
+### Update user response example
+
+```json
+{
+    "success": true,
+    "message": "User update success"
+}
+```
+
+### Get all users response example
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": 4,
+            "user_name": "publisher",
+            "email": "publisher@mail.com",
+            "created_at": "2020-08-27T16:10:34.386Z",
+            "updated_at": "2020-08-27T16:15:53.457Z",
+            "deleted_at": null
+        },
+        {
+            "id": 3,
+            "user_name": "edgarmejia",
+            "email": "edgar.mejia@gmail.com",
+            "created_at": "2020-08-27T07:00:51.991Z",
+            "updated_at": null,
+            "deleted_at": null
+        },
+        {
+            "id": 2,
+            "user_name": "cristina.corvera",
+            "email": "criscorvera@gmail.com",
+            "created_at": "2020-07-01T21:28:58.337Z",
+            "updated_at": null,
+            "deleted_at": null
+        },
+        {
+            "id": 1,
+            "user_name": "admin",
+            "email": "edgar13155@gmail.com",
+            "created_at": "2020-06-29T19:56:05.750Z",
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "total": "4",
+    "pageSize": 10,
+    "page": 1
+}
+```
+
+### Get one user response example
+
+```json
+{
+    "success": true,
+    "data": {
+        "id": 4,
+        "user_name": "publisherr",
+        "email": "publisher@mail.com",
+        "created_at": "2020-08-27T16:10:34.386Z",
+        "updated_at": "2020-08-27T16:13:14.191Z",
+        "deleted_at": null
+    }
+}
+```
+
+### Delete one client response example
+
+```json
+{
+    "success": true,
+    "message": "Delete user success"
+}
+```
+
+### Bad auth token response for all user endpoints
+
+```
+401 Unauthorized
 ```
 
 ## Client
@@ -82,11 +184,13 @@ Note that you have to add a space between `JWT` and your auth token like the exa
 ### Save client form
 Use x-www-form-urlencoded body
 
-- `id` --> Only required when you're editing
-- `txtFirstName `
-- `txtLastName`
-- `txtAge`
-- `txtGender`
+| **Key** | **Value** | **Required** |
+| ------ | ------ | ------ |
+| id | string | ❌ Only required when you're editing |
+| txtFirstName | string | ✅ |
+| txtLastName | string | ✅ |
+| txtAge | string | ✅ |
+| txtGender | string | ✅ |
 
 ### Full request example with Angular 10:
 
@@ -138,7 +242,7 @@ save(): Observable<Response> {
 ```json
 {
     "success": true,
-    "message": "Update success"
+    "message": "Client update success"
 }
 ```
 

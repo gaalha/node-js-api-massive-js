@@ -1,11 +1,10 @@
 {
 	"api.client.fields.empty": "Empty fields",
 	"api.client.save.success": "Save success",
-	"api.client.update.success": "Update success",
-	"api.client.delete.success": "Delete success",
+	"api.client.update.success": "Client update success",
+	"api.client.delete.success": "Delete client success",
 	"api.client.save.error": "Failed to save client",
 	"api.client.update.error": "Failed to update client",
-	"api.user.save.success": "User saved success",
 	"api.auth.login.data.error": "Login error",
 	"api.user.fields.empty": "The record is not save yet",
 	"api.user.fields.empty.with.field": "The record is not save yet. The wrong field is: ",
@@ -14,5 +13,8 @@
 	"api.auth.logout.success": "Logout success",
 	"api.client.delete.succes": "Success delete client",
 	"api.auth.fields.empty": "Empty fields",
-	"api.client.get.empty": "No clients"
+	"api.client.get.empty": "No clients",
+	"api.user.update.success": "User update success",
+	"api.user.delete.succes": "Delete user success",
+	"api.user.save.success": "User saved success"
 }

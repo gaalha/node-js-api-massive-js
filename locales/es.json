@@ -1,11 +1,10 @@
 {
 	"api.client.fields.empty": "Hay campos vacios",
 	"api.client.save.success": "Registro almacenado correctamente",
-	"api.client.update.success": "Registro actualizado correctamente",
+	"api.client.update.success": "Cliente actualizado correctamente",
 	"api.client.delete.success": "Registro eliminado correctamente",
 	"api.client.save.error": "Ocurrio un error al tratar de guardar el registro",
 	"api.client.update.error": "Ocurrio un error al tratar de actualizar el registro",
-	
 	"api.auth.fields.empty": "Campos vacios",
 	"api.auth.login.data.error": "Error: El usuario y/o la contraseña son incorrectos",
 	"api.client.get.empty": "Aún no se ha guardado ningun registro.",
@@ -14,5 +13,8 @@
 	"api.auth.token.null": "Acceso denegado",
 	"api.auth.token.fail": "La sesión ha expirado",
 	"api.auth.logout.success": "Sesión cerrada exitosamente",
-	"api.client.delete.succes": "Cliente eliminado correctamente"
+	"api.client.delete.succes": "Cliente eliminado correctamente",
+	"api.user.update.success": "Usuario actualizado correctamente",
+	"api.user.delete.succes": "Usuario eliminado correctamente",
+	"api.user.save.success": "User saved success"
 }

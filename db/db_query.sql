@@ -12,6 +12,15 @@ CREATE TABLE user_app(
     deleted_at TIMESTAMP(6) NULL
 );
 
+/*
+Insert generic user for your first login, note that the password is encrypted
+After insert login with this credentials:
+- User: admin@email.com
+- Password: 123123123
+*/
+INSERT INTO user_app(user_name, email, password)
+VALUES ('admin', 'admin@email.com', '$2b$10$P6wWJsfsvRafgixqzwSbtu1TgkcJ4m3P3dL.TA8dtcwI9ZGi/ahQy');
+
 CREATE TABLE client(
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(250) NOT NULL,
