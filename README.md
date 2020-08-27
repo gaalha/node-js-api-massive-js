@@ -3,8 +3,6 @@ Basic API with NodeJS: sessions, JSON Web Token (JWT), routes & pagination.
 
 Used database: [link](https://github.com/edgarMejia/node-js-api-massive-js/blob/master/db/db_query.sql)
 
-## Endpoints
-
 ## Authentication
 
 | **Name** | **Type** | **URL** |
@@ -55,7 +53,6 @@ Used database: [link](https://github.com/edgarMejia/node-js-api-massive-js/blob/
 
 ### Save user response example
 
-**Success JSON response:**
 ```json
 {
     "success": true,
@@ -106,21 +103,22 @@ export interface Response {
 }
 
 save(): Observable<Response> {
-    let headers = new HttpHeaders({
-      'Authorization': 'JWT ' + localStorage.getItem('token')
+    let tokenGetWithLogin = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsImlkIjoxLCJpYXQiOjE1OTg1MTEwODgsImV4cCI6MTU5ODU5NzQ4OH0.C7NQ0V0aZgTSobdMhhXIddpSswlIncJtkgYVhod-tG0'
+    let sexyHeader = new HttpHeaders({
+      'Authorization': 'JWT ' + tokenGetWithLogin
     });
 
     return this.http.post<Response>(
         'http://localhost:3000/api/client/save',
         {
-            txtFirstName: client.first_name,
-            txtLastName: client.last_name,
-            txtAge: client.age,
-            txtGender: client.gender,
-            id: client.id
+            txtFirstName: 'Edgar',
+            txtLastName: 'Mejía',
+            txtAge: 25,
+            txtGender: 'Male',
+            id: null
         },
         {
-            headers: this.headers
+            headers: sexyHeader
         }
     );
 }
@@ -128,7 +126,6 @@ save(): Observable<Response> {
 
 ### Save client response example
 
-**Success JSON response:**
 ```json
 {
     "success": true,
@@ -138,7 +135,6 @@ save(): Observable<Response> {
 
 ### Update client response example
 
-**Success JSON response:**
 ```json
 {
     "success": true,
@@ -148,7 +144,6 @@ save(): Observable<Response> {
 
 ### Get all clients response example
 
-**Success JSON response:**
 ```json
 {
     "success": true,
@@ -182,7 +177,6 @@ save(): Observable<Response> {
 
 ### Get one client response example
 
-**Success JSON response:**
 ```json
 {
     "success": true,
@@ -201,7 +195,6 @@ save(): Observable<Response> {
 
 ### Delete one client response example
 
-**Success JSON response:**
 ```json
 {
     "success": true,
@@ -209,8 +202,11 @@ save(): Observable<Response> {
 }
 ```
 
-**Bad auth token response for all client endpoints:**
-`401 Unauthorized`
+### Bad auth token response for all client endpoints
+
+```
+401 Unauthorized
+```
 
 ## License
 **The MIT License (MIT)**
