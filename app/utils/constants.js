@@ -1,6 +1,6 @@
 let projectName = process.env.projectName || 'node-js-api-massive-js';
 
-let domain = process.env.APIPERSONA_DOMAIN || 'http://localhost:3000/';
+let domain = process.env.API_DOMAIN || 'http://localhost:3000/';
 let postgreHost = process.env.postgre_HOST || 'localhost';
 let postgrePort = process.env.postgre_PORT || '5432';
 
@@ -10,7 +10,7 @@ let postgrePass = process.env.postgrePass || '123123123';
 
 let jwtSecret = process.env.jwtSecret || 'kl-AHSfdlk-jadshkjlasdf-lkjAShdkjS';
 let saltRounds = process.env.saltRounds || 10;
-let jwtExpiration = process.env.jwtExpiration || 3600; // --> seconds = 24h (86400)
+let jwtExpiration = process.env.jwtExpiration || 86400; // --> seconds = 24h (86400)
 
 const httpCode = {
     success: 200,

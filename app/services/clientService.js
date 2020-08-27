@@ -1,21 +1,21 @@
 let db = require('../../db/dataBase');
 
-class personService {
+class clientService {
 
-    static async deletePerson(req) {
+    static async delete(req) {
         let id = req.params.id;
-        let person = {
+        let client = {
         id: id,
             deleted_at: new Date()
         }
 
-        const result = await db.pg.person.save(person);
+        const result = await db.pg.client.save(client);
         return result;
     }
 
     static async getOne(req) {
         let id = req.params.id;
-        const result = await db.pg.person.findOne({id: id});
+        const result = await db.pg.client.findOne({id: id});
         return result;
     }
 
@@ -37,7 +37,8 @@ class personService {
             ]
         }
 
-        const result = await db.pg.person.find(CRITERIA,
+        const result = await db.pg.client.find(
+            CRITERIA,
             {
                 order: [{
                     field: active,
@@ -52,28 +53,28 @@ class personService {
     }
 
     static async getAllCount() {
-        let result = await db.pg.person.count({'deleted_at IS': 'NULL',});
+        let result = await db.pg.client.count({'deleted_at IS': 'NULL',});
         return result;
     }
 
-    static async save(req, personId) {
-        let person = {
+    static async save(req, id) {
+        let client = {
             first_name: req.body.txtFirstName,
             last_name: req.body.txtLastName,
             age: req.body.txtAge,
             gender: req.body.txtGender,
         };
 
-        if (personId) {
-            person.id = personId;
-            person.updated_at = new Date();
+        if (id) {
+            client.id = id;
+            client.updated_at = new Date();
         } else {
-            person.created_at = new Date();
+            client.created_at = new Date();
         }
 
-        return db.pg.person.save(person);
+        return db.pg.client.save(client);
     }
 
 }
 
-module.exports = personService;
+module.exports = clientService;

@@ -6,8 +6,8 @@ let asyncHandler = require('../../utils/asyncHandler');
 router.post(
     '/login',
     asyncHandler(async (req, res) => {
-        req.checkBody('txtUsername').trim().notEmpty();
-        req.checkBody('txtPassword').trim().notEmpty();
+        req.checkBody('txtUsername').notEmpty().trim();
+        req.checkBody('txtPassword').notEmpty().trim();
         let errors = req.validationErrors();
 
         if (errors) {

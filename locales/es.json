@@ -1,18 +1,18 @@
 {
-	"api.person.fields.empty": "Hay campos vacios",
-	"api.person.save.success": "Registro almacenado correctamente",
-	"api.person.update.success": "Registro actualizado correctamente",
-	"api.person.delete.success": "Registro eliminado correctamente",
-	"api.person.save.error": "Ocurrio un error al tratar de guardar el registro",
-	"api.person.update.error": "Ocurrio un error al tratar de actualizar el registro",
+	"api.client.fields.empty": "Hay campos vacios",
+	"api.client.save.success": "Registro almacenado correctamente",
+	"api.client.update.success": "Registro actualizado correctamente",
+	"api.client.delete.success": "Registro eliminado correctamente",
+	"api.client.save.error": "Ocurrio un error al tratar de guardar el registro",
+	"api.client.update.error": "Ocurrio un error al tratar de actualizar el registro",
 	
 	"api.auth.fields.empty": "Campos vacios",
 	"api.auth.login.data.error": "Error: El usuario y/o la contraseña son incorrectos",
-	"api.person.get.empty": "Aún no se ha guardado ningun registro.",
+	"api.client.get.empty": "Aún no se ha guardado ningun registro.",
 	"api.user.fields.empty": "Aún no se ha guardado ningun registro.",
 	"api.user.fields.empty.with.field": "Aún no se ha guardado ningun registro. El campo erroneo es: ",
 	"api.auth.token.null": "Acceso denegado",
 	"api.auth.token.fail": "La sesión ha expirado",
 	"api.auth.logout.success": "Sesión cerrada exitosamente",
-	"api.person.delete.succes": "api.person.delete.succes"
+	"api.client.delete.succes": "Cliente eliminado correctamente"
 }

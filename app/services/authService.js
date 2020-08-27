@@ -23,7 +23,7 @@ class authService {
             const checkPassword = await bcrypt.compare(plainPassword, result.password);
 
             if (!checkPassword) {
-                return { success: false, message: 'Password no match', token: null }
+                return { success: false, message: 'Invalid user or password', token: null }
             }
 
             const token = createJwtToken(result.id, result.user_name);

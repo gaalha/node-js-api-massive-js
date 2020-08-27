@@ -12,7 +12,7 @@ CREATE TABLE user_app(
     deleted_at TIMESTAMP(6) NULL
 );
 
-CREATE TABLE person(
+CREATE TABLE client(
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(250) NOT NULL,
     last_name VARCHAR(250) NOT NULL,
